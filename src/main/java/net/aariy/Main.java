@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +28,8 @@ public class Main extends ListenerAdapter
         System.out.println("Bot is starting up.\n(c) 2022 Aariy.NET");
         JDA jda = JDABuilder.createDefault(args[0])
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .addEventListeners(new Main())
                 .build();
         jda.updateCommands()
@@ -138,7 +141,6 @@ public class Main extends ListenerAdapter
                             catch(Exception ignored)
                             {
                             }
-
                         }
                     e.getMessage().reply("✅ 処理に成功しました。").queue();
                 }
@@ -154,7 +156,6 @@ public class Main extends ListenerAdapter
                             catch(Exception ignored)
                             {
                             }
-
                         }
                     e.getMessage().reply("✅ 処理に成功しました。").queue();
                 }
