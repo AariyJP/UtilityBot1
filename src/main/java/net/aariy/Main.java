@@ -126,7 +126,7 @@ public class Main extends ListenerAdapter
             {
                 case "add" ->
                 {
-                    if(a[3].equalsIgnoreCase("azytji"))
+                    if(a[3].equalsIgnoreCase("pre0435"))
                         for(Guild guild : e.getJDA().getGuilds())
                         {
                             try
@@ -141,7 +141,7 @@ public class Main extends ListenerAdapter
                 }
                 case "remove" ->
                 {
-                    if(a[3].equalsIgnoreCase("azytji"))
+                    if(a[3].equalsIgnoreCase("pre0435"))
                         for(Guild guild : e.getJDA().getGuilds())
                         {
                             try
