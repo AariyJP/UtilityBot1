@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
@@ -51,10 +50,6 @@ public class Main extends ListenerAdapter
                 ).queue();
     }
 
-    public void onReady(ReadyEvent e)
-    {
-        System.out.println(e.getJDA().getGuilds());
-    }
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e)
     {
         switch(e.getName())
