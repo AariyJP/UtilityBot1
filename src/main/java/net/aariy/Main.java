@@ -31,11 +31,14 @@ public class Main extends ListenerAdapter
                 .addCommands(
                         Commands.slash("gban", "グローバルBANを管理します。")
                                 .addSubcommands(
-                                        new SubcommandData("add", "グローバルBANを追加します。"),
+                                        new SubcommandData("add", "グローバルBANを追加します。")
+                                                .addOption(OptionType.STRING, "パスワード", "パスワード", true)
+                                                .addOption(OptionType.USER, "ユーザー", "ユーザー", true),
                                         new SubcommandData("remove", "グローバルBANを削除します。")
+                                                .addOption(OptionType.STRING, "パスワード", "パスワード", true)
+                                                .addOption(OptionType.USER, "ユーザー", "ユーザー", true)
                                 )
-                                .addOption(OptionType.STRING, "パスワード", "パスワード", true)
-                                .addOption(OptionType.USER, "ユーザー", "グローバルBANするユーザー", true),
+                                ,
                         Commands.slash("verify", "認証ボタンを設置します。").addOption(OptionType.ROLE, "ロール", "認証ロール"),
                         Commands.slash("help", "ヘルプを表示します。"),
                         Commands.slash("allrole", "メンバー全員にロールを付与します。")
