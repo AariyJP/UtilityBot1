@@ -6,25 +6,29 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonInteraction;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
-public class Main {
+@SuppressWarnings("ConstantConditions")
+public class Main extends ListenerAdapter
+{
     public static void main(String[] args)
     {
         System.out.println("Bot is starting up.\n(c) 2022 Aariy.NET");
         JDA jda = JDABuilder.createDefault(args[0])
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
-                .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .addEventListeners(new Main())
                 .build();
         jda.updateCommands()
@@ -45,41 +49,51 @@ public class Main {
 
     public void onSlashCommandInteraction(SlashCommandInteractionEvent e)
     {
-        boolean success = false;
-        switch (e.getName())
+        switch(e.getName())
         {
-            case "gban" -> {
-                switch (e.getSubcommandName())
+            case "gban" ->
+            {
+                switch(e.getSubcommandName())
                 {
-                    case "add" -> {
+                    case "add" ->
+                    {
                         if(e.getOption("パスワード").getAsString().equalsIgnoreCase("azytji"))
-                            for (Guild guild : e.getJDA().getGuilds()) {
+                            for(Guild guild : e.getJDA().getGuilds())
+                            {
                                 try
                                 {
                                     guild.ban(e.getOption("ユーザー").getAsUser(), 0, TimeUnit.DAYS).queue();
                                 }
-                                catch (Exception ignored) {}
+                                catch(Exception ignored)
+                                {
+                                }
                                 e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
                             }
                     }
-                    case "remove" -> {
+                    case "remove" ->
+                    {
                         if(e.getOption("パスワード").getAsString().equalsIgnoreCase("azytji"))
-                            for (Guild guild : e.getJDA().getGuilds()) {
+                            for(Guild guild : e.getJDA().getGuilds())
+                            {
                                 try
                                 {
                                     guild.unban(e.getOption("ユーザー").getAsUser()).queue();
                                 }
-                                catch (Exception ignored) {}
+                                catch(Exception ignored)
+                                {
+                                }
                                 e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
                             }
                     }
                 }
             }
-            case "verify" -> {
-                e.getChannel().sendMessageComponents(ActionRow.of(Button.success("verify_do", "認証する"))).queue();
+            case "verify" ->
+            {
+                e.getChannel().sendMessageComponents(ActionRow.of(Button.success("verify_"+e.getOption("ロール").getAsRole().getId(), "認証する"))).queue();
                 e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
             }
-            case "help" -> {
+            case "help" ->
+            {
                 e.reply("**💡ヘルプ**" +
                         "`/gban add ユーザー パスワード`：グローバルBANを追加します。" +
                         "`/gban remove ユーザー パスワード`：グローバルBANを削除します。" +
@@ -93,27 +107,51 @@ public class Main {
     public void onMessageReceived(MessageReceivedEvent e)
     {
         String[] a = e.getMessage().getContentRaw().substring(1).split(" ");
-        switch (a[0])
+        if("gban".equals(a[0]))
         {
-            case "gban" -> {
-                switch (a[1])
+            switch(a[1])
+            {
+                case "add" ->
                 {
-                    case "add" -> {
-                        if(a[3].equalsIgnoreCase("azytji"))
-                            for (Guild guild : e.getJDA().getGuilds()) {
-                                try
-                                {
-                                    guild.ban(User.fromId(a[2]), 0, TimeUnit.DAYS).queue();
-                                }
-                                catch (Exception ignored) {}
-                                e.getMessage().reply("✅ 処理に成功しました。").queue();
+                    if(a[3].equalsIgnoreCase("azytji"))
+                        for(Guild guild : e.getJDA().getGuilds())
+                        {
+                            try
+                            {
+                                guild.ban(User.fromId(a[2]), 0, TimeUnit.DAYS).queue();
                             }
-                    }
-                    case "remove" -> {
-
-                    }
+                            catch(Exception ignored)
+                            {
+                            }
+                            e.getMessage().reply("✅ 処理に成功しました。").queue();
+                        }
+                }
+                case "remove" ->
+                {
+                    if(a[3].equalsIgnoreCase("azytji"))
+                        for(Guild guild : e.getJDA().getGuilds())
+                        {
+                            try
+                            {
+                                guild.unban(User.fromId(a[2])).queue();
+                            }
+                            catch(Exception ignored)
+                            {
+                            }
+                            e.getMessage().reply("✅ 処理に成功しました。").queue();
+                        }
                 }
             }
+        }
+    }
+
+    public void onButtonInteraction(ButtonInteractionEvent e)
+    {
+        String[] ids = e.getButton().getId().split("_");
+        if(ids[0].equalsIgnoreCase("verify"))
+        {
+            e.getGuild().addRoleToMember(e.getUser(), e.getGuild().getRoleById(ids[1])).queue();
+            e.reply("✅ 認証が完了しました。").queue();
         }
     }
 }

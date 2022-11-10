@@ -15,14 +15,14 @@ dependencies {
 }
 
 shadowJar {
-    archiveBaseName.set('ScheduleMes')
+    archiveBaseName.set('UtilityBot')
     archiveClassifier.set('')
     archiveVersion.set('')
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'Main'
+        attributes 'Main-Class': 'net.aariy.Main'
     }
 }
 
