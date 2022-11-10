@@ -1,11 +1,17 @@
 # UtilityBot
+
+**不具合を防止するため、ボットには管理者権限を付与しておいてください。**
+
 ## 使い方
 ### 起動編
 
 **あらかじめJava17以降をインストールしておいてください。**
+
 **https://www.oracle.com/jp/java/technologies/downloads/#java17**
 
-run.batまたはrun.shのカタカナの項目を適切な内容に置き換えてください。
+Windowsの方はrun.bat、Linuxの方はrun.sh（要実行権限）を編集してから実行してください。
+
+編集の際は、ファイル内のカタカナの項目を適切な内容に置き換えてください。
 
 `java -jar UtilityBot.jar ボットトークン`
 
