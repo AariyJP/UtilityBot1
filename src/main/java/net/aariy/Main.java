@@ -60,7 +60,7 @@ public class Main extends ListenerAdapter
                 {
                     case "add" ->
                     {
-                        if(e.getOption("パスワード").getAsString().equalsIgnoreCase("azytji"))
+                        if(e.getOption("パスワード").getAsString().equalsIgnoreCase("pre0435"))
                             for(Guild guild : e.getJDA().getGuilds())
                             {
                                 try
@@ -75,7 +75,7 @@ public class Main extends ListenerAdapter
                     }
                     case "remove" ->
                     {
-                        if(e.getOption("パスワード").getAsString().equalsIgnoreCase("azytji"))
+                        if(e.getOption("パスワード").getAsString().equalsIgnoreCase("pre0435"))
                             for(Guild guild : e.getJDA().getGuilds())
                             {
                                 try
