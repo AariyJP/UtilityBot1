@@ -72,8 +72,8 @@ public class Main extends ListenerAdapter
                                 catch(Exception ignored)
                                 {
                                 }
-                                e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
                             }
+                        e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
                     }
                     case "remove" ->
                     {
@@ -87,8 +87,9 @@ public class Main extends ListenerAdapter
                                 catch(Exception ignored)
                                 {
                                 }
-                                e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
+
                             }
+                        e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
                     }
                 }
             }
@@ -103,7 +104,7 @@ public class Main extends ListenerAdapter
                     `/gban remove ユーザー パスワード`：グローバルBANを削除します。
                     `/verify ロール`:認証ボタンを設置します。
                     `/help`：ヘルプを表示します。
-                    `/allrole`：メンバー全員にロールを付与します。""").setEphemeral(true).queue();
+                    `/allrole ロール`：メンバー全員にロールを付与します。""").setEphemeral(true).queue();
             case "allrole" -> {
                 for(Member member : e.getGuild().getMembers())
                 {
@@ -132,13 +133,14 @@ public class Main extends ListenerAdapter
                         {
                             try
                             {
-                                guild.ban(User.fromId(a[2]), 0, TimeUnit.DAYS).queue();
+                                guild.ban(User.fromId(a[2].replaceAll("[<!@>]", "")), 0, TimeUnit.DAYS).queue();
                             }
                             catch(Exception ignored)
                             {
                             }
-                            e.getMessage().reply("✅ 処理に成功しました。").queue();
+
                         }
+                    e.getMessage().reply("✅ 処理に成功しました。").queue();
                 }
                 case "remove" ->
                 {
@@ -147,13 +149,14 @@ public class Main extends ListenerAdapter
                         {
                             try
                             {
-                                guild.unban(User.fromId(a[2])).queue();
+                                guild.unban(User.fromId(a[2].replaceAll("[<!@>]", ""))).queue();
                             }
                             catch(Exception ignored)
                             {
                             }
-                            e.getMessage().reply("✅ 処理に成功しました。").queue();
+
                         }
+                    e.getMessage().reply("✅ 処理に成功しました。").queue();
                 }
             }
         }
