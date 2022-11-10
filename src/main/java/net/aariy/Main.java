@@ -2,7 +2,6 @@ package net.aariy;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -14,11 +13,8 @@ import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
-import net.dv8tion.jda.api.interactions.components.buttons.ButtonInteraction;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
-import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("ConstantConditions")
@@ -92,15 +88,13 @@ public class Main extends ListenerAdapter
                 e.getChannel().sendMessageComponents(ActionRow.of(Button.success("verify_"+e.getOption("ロール").getAsRole().getId(), "認証する"))).queue();
                 e.reply("✅ 処理に成功しました。").setEphemeral(true).queue();
             }
-            case "help" ->
-            {
-                e.reply("**💡ヘルプ**" +
-                        "`/gban add ユーザー パスワード`：グローバルBANを追加します。" +
-                        "`/gban remove ユーザー パスワード`：グローバルBANを削除します。" +
-                        "`/verify ロール`:認証ボタンを設置します。" +
-                        "`/help`：ヘルプを表示します。" +
-                        "`/allrole`：メンバー全員にロールを付与します。").setEphemeral(true).queue();
-            }
+            case "help" -> e.reply("""
+                    **💡ヘルプ**
+                    `/gban add ユーザー パスワード`：グローバルBANを追加します。
+                    `/gban remove ユーザー パスワード`：グローバルBANを削除します。
+                    `/verify ロール`:認証ボタンを設置します。
+                    `/help`：ヘルプを表示します。
+                    `/allrole`：メンバー全員にロールを付与します。""").setEphemeral(true).queue();
         }
     }
 
