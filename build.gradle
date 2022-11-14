@@ -15,7 +15,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveBaseName.set('UtilityBot')
+    archiveBaseName.set('ShareChatBot1')
     archiveClassifier.set('')
     archiveVersion.set('')
 }
