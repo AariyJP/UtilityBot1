@@ -1,0 +1,1 @@
+java -jar ShareChatBot1.jar トークン ハブのチャンネルID 送信先チャンネルID
